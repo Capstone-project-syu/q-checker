@@ -1,16 +1,21 @@
 // App.tsx
-import { NavigationContainer } from "@react-navigation/native"; // 만약 navigation도 쓴다면
 import React from "react";
-import { ThemeProvider } from "styled-components/native";
+import { SafeAreaView, StyleSheet } from "react-native";
 import IndexScreen from "./app/(tabs)/index";
-import { theme } from "./src/theme";
 
 export default function App() {
   return (
-    <ThemeProvider theme={theme}>
-      <NavigationContainer>
-        <IndexScreen />
-      </NavigationContainer>
-    </ThemeProvider>
+    <SafeAreaView style={styles.container}>
+      <IndexScreen />
+    </SafeAreaView>
   );
 }
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center",
+    backgroundColor: "#fff",
+  },
+});

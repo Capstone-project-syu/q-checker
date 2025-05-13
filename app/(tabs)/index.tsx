@@ -1,11 +1,10 @@
 // app/(tabs)/index.tsx
-
-import { Image } from "expo-image";
-import { Platform, StyleSheet } from "react-native";
-
+import Button from "@/components/common/button/Button"; // Button 가져오기
 import ParallaxScrollView from "@/components/ParallaxScrollView";
 import { ThemedText } from "@/components/ThemedText";
 import { ThemedView } from "@/components/ThemedView";
+import React from "react";
+import { Image, Platform, StyleSheet } from "react-native";
 
 export default function IndexScreen() {
   return (
@@ -20,6 +19,18 @@ export default function IndexScreen() {
     >
       <ThemedView style={styles.titleContainer}>
         <ThemedText type="title">Welcome to Q-CHECKER!</ThemedText>
+      </ThemedView>
+
+      {/* Step 1: Button 추가 */}
+      <ThemedView style={styles.stepContainer}>
+        <Button
+          buttonSize="big"
+          fontSize="big"
+          backgroundColor="primary"
+          onPress={() => console.log("버튼 클릭됨!")}
+        >
+          Q-CHECKER 시작하기
+        </Button>
       </ThemedView>
 
       <ThemedView style={styles.stepContainer}>
