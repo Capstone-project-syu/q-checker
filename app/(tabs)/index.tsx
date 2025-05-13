@@ -12,7 +12,7 @@ export default function IndexScreen() {
       headerBackgroundColor={{ light: "#D1E8E2", dark: "#1E3A3A" }}
       headerImage={
         <Image
-          source={require("@/assets/images/favicon.png")} // Q-CHECKER 로고를 예시로
+          source={require("@/assets/images/logo.svg")} // Q-CHECKER 로고를 예시로
           style={styles.logoImage}
         />
       }
@@ -33,6 +33,7 @@ export default function IndexScreen() {
         </Button>
       </ThemedView>
 
+      {/* Other steps */}
       <ThemedView style={styles.stepContainer}>
         <ThemedText type="subtitle">Step 1: Start Checking</ThemedText>
         <ThemedText>
@@ -87,7 +88,7 @@ const styles = StyleSheet.create({
     marginBottom: 16,
   },
   logoImage: {
-    height: 180,
+    height: 60,
     width: 300,
     bottom: 0,
     left: 0,
