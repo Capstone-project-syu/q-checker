@@ -5,12 +5,13 @@
   "scripts": {
     "start": "expo start",
     "reset-project": "node ./scripts/reset-project.js",
-    "android": "expo start --android",
-    "ios": "expo start --ios",
+    "android": "expo run:android",
+    "ios": "expo run:ios",
     "web": "expo start --web",
     "lint": "expo lint"
   },
   "dependencies": {
+    "@expo/server": "^0.6.2",
     "@expo/vector-icons": "^14.1.0",
     "@react-native-community/datetimepicker": "github:react-native-datetimepicker/datetimepicker",
     "@react-native-seoul/kakao-login": "github:react-native-seoul/kakao-login",
@@ -19,7 +20,7 @@
     "@react-navigation/native": "^7.1.6",
     "axios": "^1.9.0",
     "dayjs": "^1.11.13",
-    "expo": "~53.0.7",
+    "expo": "^53.0.9",
     "expo-auth-session": "~6.1.5",
     "expo-blur": "~14.1.4",
     "expo-camera": "~16.1.6",
@@ -53,6 +54,7 @@
   "devDependencies": {
     "@babel/core": "^7.25.2",
     "@types/react": "~19.0.10",
+    "@types/react-native": "^0.73.0",
     "eslint": "^9.25.0",
     "eslint-config-expo": "~9.2.0",
     "typescript": "~5.8.3"
