@@ -16,40 +16,22 @@ export default function HomeScreen() {
           style={styles.reactLogo}
         />
       }>
-      <ThemedView style={styles.titleContainer}>
-        <ThemedText type="title">Welcome!</ThemedText>
-        <HelloWave />
+      {/* Header가 위치할 공간 */}
+      <ThemedView style={styles.titleContainer}></ThemedView>
+      {/* QR 생성, QR 촬영 버튼 */}
+      <ThemedView style={styles.qrContainer}>
+        <ThemedView style={styles.qrButton}>QR 생성</ThemedView>
+        <ThemedView style={styles.qrButton}>QR 촬영</ThemedView>
       </ThemedView>
-      <ThemedView style={styles.stepContainer}>
-        <ThemedText type="subtitle">Step 1: Try it</ThemedText>
-        <ThemedText>
-          Edit <ThemedText type="defaultSemiBold">app/(tabs)/index.tsx</ThemedText> to see changes.
-          Press{' '}
-          <ThemedText type="defaultSemiBold">
-            {Platform.select({
-              ios: 'cmd + d',
-              android: 'cmd + m',
-              web: 'F12',
-            })}
-          </ThemedText>{' '}
-          to open developer tools.
-        </ThemedText>
-      </ThemedView>
-      <ThemedView style={styles.stepContainer}>
-        <ThemedText type="subtitle">Step 2: Explore</ThemedText>
-        <ThemedText>
-          {`Tap the Explore tab to learn more about what's included in this starter app.`}
-        </ThemedText>
-      </ThemedView>
-      <ThemedView style={styles.stepContainer}>
-        <ThemedText type="subtitle">Step 3: Get a fresh start</ThemedText>
-        <ThemedText>
-          {`When you're ready, run `}
-          <ThemedText type="defaultSemiBold">npm run reset-project</ThemedText> to get a fresh{' '}
-          <ThemedText type="defaultSemiBold">app</ThemedText> directory. This will move the current{' '}
-          <ThemedText type="defaultSemiBold">app</ThemedText> to{' '}
-          <ThemedText type="defaultSemiBold">app-example</ThemedText>.
-        </ThemedText>
+      {/* QR 생성 내역 출력 */}
+      <ThemedView style={styles.historyContainer}>
+        <ThemedText style={styles.historyTitle}>QR 생성 내역</ThemedText>
+        <ThemedText style={styles.historyDescription}>아직 생성한 QR 내역이 없습니다.</ThemedText>
+        {/*조건 만족시? (
+          { QR 생성 내역 출력 
+        ) : (
+          <ThemedText style={styles.historyDescription}>아직 생성한 QR 내역이 없습니다.</ThemedText>
+        )}*/}
       </ThemedView>
     </ParallaxScrollView>
   );
@@ -60,10 +42,31 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     gap: 8,
+    backgroundColor: '#2E8E14',
   },
-  stepContainer: {
-    gap: 8,
-    marginBottom: 8,
+  qrContainer: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    padding: 30,
+  },
+  qrButton: {
+    width: 120,
+    height: 120,
+    borderRadius: 16,
+    alignItems: 'center',
+    justifyContent: 'center',
+    backgroundColor: '#D9D9D9',
+  },
+  historyContainer: {
+  },
+  historyTitle: {
+    fontSize: 16,
+    fontWeight: 'bold',
+    color: '#000'
+  },
+  historyDescription: {
+    fontSize: 16,
+    color: '#616161',
   },
   reactLogo: {
     height: 178,
