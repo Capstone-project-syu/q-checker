@@ -30,11 +30,11 @@ const styles = StyleSheet.create({
     backgroundColor: "#fff",
   },
   logoContainer: {
-    width: 200, // 고정된 너비 설정
-    height: 200, // 고정된 높이 설정
-    aspectRatio: 1, // 비율 유지 (1:1 비율로 설정)
-    justifyContent: "center", // 가운데 정렬
-    alignItems: "center", // 가운데 정렬
-    marginTop: 20, // 상단에 간격 추가
+    width: 200,
+    height: 200,
+    aspectRatio: 1,
+    justifyContent: "center",
+    alignItems: "center",
+    marginTop: 20,
   },
 });
