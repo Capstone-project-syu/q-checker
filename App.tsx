@@ -1,12 +1,23 @@
 // App.tsx
 import React from "react";
-import { SafeAreaView, StyleSheet } from "react-native";
+import { SafeAreaView, StyleSheet, View } from "react-native";
+import { SvgUri } from "react-native-svg";
 import IndexScreen from "./app/(tabs)/index";
 
 export default function App() {
   return (
     <SafeAreaView style={styles.container}>
+      {/* IndexScreen 렌더링 */}
       <IndexScreen />
+
+      {/* SVG 이미지 비율 유지하면서 View로 감싸기 */}
+      <View style={styles.logoContainer}>
+        <SvgUri
+          width="100%" // 화면 너비에 맞게 설정
+          height="100%" // 화면 높이에 맞게 설정
+          uri={require("./assets/logo.svg")} // 로고 파일 불러오기
+        />
+      </View>
     </SafeAreaView>
   );
 }
@@ -17,5 +28,13 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
     backgroundColor: "#fff",
+  },
+  logoContainer: {
+    width: 200, // 고정된 너비 설정
+    height: 200, // 고정된 높이 설정
+    aspectRatio: 1, // 비율 유지 (1:1 비율로 설정)
+    justifyContent: "center", // 가운데 정렬
+    alignItems: "center", // 가운데 정렬
+    marginTop: 20, // 상단에 간격 추가
   },
 });
