@@ -1,6 +1,6 @@
 // app/(tabs)/index.tsx
-import Button from "@/components/common/button/Button"; // Button 가져오기
 import ParallaxScrollView from "@/components/ParallaxScrollView";
+import { Button } from "@/components/shared/Button/Button.component";
 import { ThemedText } from "@/components/ThemedText";
 import { ThemedView } from "@/components/ThemedView";
 import React from "react";
@@ -12,7 +12,7 @@ export default function IndexScreen() {
       headerBackgroundColor={{ light: "#D1E8E2", dark: "#1E3A3A" }}
       headerImage={
         <Image
-          source={require("@/assets/images/logo.svg")} // Q-CHECKER 로고를 예시로
+          source={require("@/assets/images/logo.png")}
           style={styles.logoImage}
         />
       }
@@ -21,19 +21,17 @@ export default function IndexScreen() {
         <ThemedText type="title">Welcome to Q-CHECKER!</ThemedText>
       </ThemedView>
 
-      {/* Step 1: Button 추가 */}
       <ThemedView style={styles.stepContainer}>
         <Button
-          buttonSize="big"
-          fontSize="big"
-          backgroundColor="primary"
+          size="lg" // <- props에 맞게
+          variant="solid" // <- props에 맞게
+          color="primary" // <- props에 맞게
           onPress={() => console.log("버튼 클릭됨!")}
         >
           Q-CHECKER 시작하기
         </Button>
       </ThemedView>
 
-      {/* Other steps */}
       <ThemedView style={styles.stepContainer}>
         <ThemedText type="subtitle">Step 1: Start Checking</ThemedText>
         <ThemedText>
