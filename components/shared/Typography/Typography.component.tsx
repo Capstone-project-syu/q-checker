@@ -1,6 +1,7 @@
 // components/Typography.component.tsx
 import React from "react";
 import { StyleSheet, Text } from "react-native";
+import { theme } from "../../../src/styles/theme";
 import { TypographyProps } from "./Typography.type";
 
 const Typography: React.FC<TypographyProps> = ({
@@ -18,21 +19,9 @@ const Typography: React.FC<TypographyProps> = ({
 
 // 스타일 정의
 const styles = StyleSheet.create({
-  h1: {
-    fontSize: 32,
-    fontWeight: "bold",
-    lineHeight: 40,
-  },
-  h2: {
-    fontSize: 28,
-    fontWeight: "bold",
-    lineHeight: 36,
-  },
-  h3: {
-    fontSize: 24,
-    fontWeight: "bold",
-    lineHeight: 32,
-  },
+  h1: theme.typography.h1,
+  h2: theme.typography.h2,
+  h3: theme.typography.h3,
   h4: {
     fontSize: 20,
     fontWeight: "bold",
@@ -53,11 +42,7 @@ const styles = StyleSheet.create({
     fontWeight: "500",
     lineHeight: 32,
   },
-  body: {
-    fontSize: 16,
-    fontWeight: "400",
-    lineHeight: 22,
-  },
+  body: theme.typography.body,
   subtitle1: {
     fontSize: 18,
     fontWeight: "400",
@@ -68,11 +53,7 @@ const styles = StyleSheet.create({
     fontWeight: "400",
     lineHeight: 20,
   },
-  caption: {
-    fontSize: 12,
-    fontWeight: "300",
-    lineHeight: 18,
-  },
+  caption: theme.typography.caption,
 });
 
 export default Typography;

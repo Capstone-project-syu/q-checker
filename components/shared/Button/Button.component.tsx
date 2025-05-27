@@ -1,5 +1,6 @@
 import React from "react";
 import { StyleSheet, TouchableOpacity } from "react-native";
+import { theme } from "../../../src/styles/theme";
 import Typography from "../Typography/Typography.component";
 import { ButtonProps } from "./Button.type";
 
@@ -54,22 +55,18 @@ const styles = StyleSheet.create({
     paddingVertical: 14,
     paddingHorizontal: 20,
   },
-  "container-xl": {
-    paddingVertical: 16,
-    paddingHorizontal: 24,
-  },
   "container-variant-solid": {
-    backgroundColor: "#2E8E14",
+    backgroundColor: theme.colors.primary,
   },
   "container-variant-outline": {
     borderWidth: 1,
-    borderColor: "#2E8E14",
+    borderColor: theme.colors.primary,
   },
   "container-color-primary": {
-    backgroundColor: "#2E8E14",
+    backgroundColor: theme.colors.primary,
   },
   "container-color-secondary": {
-    backgroundColor: "#34C759",
+    backgroundColor: theme.colors.secondary,
   },
   "container-color-tertiary": {
     backgroundColor: "#808080",
@@ -86,9 +83,6 @@ const styles = StyleSheet.create({
   "text-size-lg": {
     fontSize: 16,
   },
-  "text-size-xl": {
-    fontSize: 18,
-  },
   "text-color-solid-primary": {
     color: "#fff",
   },
@@ -99,10 +93,10 @@ const styles = StyleSheet.create({
     color: "#fff",
   },
   "text-color-outline-primary": {
-    color: "#2E8E14",
+    color: theme.colors.primary,
   },
   "text-color-outline-secondary": {
-    color: "#34C759",
+    color: theme.colors.secondary,
   },
   "text-color-outline-tertiary": {
     color: "#808080",
