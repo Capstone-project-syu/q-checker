@@ -1,27 +1,35 @@
 // app/login/index.tsx
+import { GoogleIcon } from "@/components/login/icons/GoogleIcon";
+import { KakaoIcon } from "@/components/login/icons/KakaoIcon";
+import { SocialLoginButton } from "@/components/login/SocialLoginButton";
+import { LogoChecked } from "@/components/LogoChecked";
 import React from "react";
-import { Image, StyleSheet, Text, TouchableOpacity, View } from "react-native";
-
-const kakaoLogo = require("../../assets/kakao.png");
-const googleLogo = require("../../assets/google.png");
+import { StyleSheet, View } from "react-native";
 
 export default function LoginScreen() {
+  const handleKakaoLogin = () => {};
+
+  const handleGoogleLogin = () => {};
+
   return (
     <View style={styles.container}>
       <View style={styles.logoContainer}>
-        <Text style={styles.logoText}>
-          Q-<Text style={styles.logoTextBold}>Checker</Text>
-          <Text style={styles.logoCheck}>✓</Text>
-        </Text>
+        <LogoChecked width={280} height={280 * (74 / 313)} />
       </View>
-      <TouchableOpacity style={styles.kakaoBtn} activeOpacity={0.8}>
-        <Image source={kakaoLogo} style={styles.btnIcon} />
-        <Text style={styles.kakaoBtnText}>카카오톡 계정으로 로그인</Text>
-      </TouchableOpacity>
-      <TouchableOpacity style={styles.googleBtn} activeOpacity={0.8}>
-        <Image source={googleLogo} style={styles.btnIcon} />
-        <Text style={styles.googleBtnText}>구글 계정으로 로그인</Text>
-      </TouchableOpacity>
+      <SocialLoginButton
+        icon={<KakaoIcon width={26} height={26} />}
+        text="카카오톡 계정으로 로그인"
+        onPress={handleKakaoLogin}
+        style={styles.kakaoBtn}
+        textStyle={styles.kakaoBtnText}
+      />
+      <SocialLoginButton
+        icon={<GoogleIcon width={26} height={26} />}
+        text="구글 계정으로 로그인"
+        onPress={handleGoogleLogin}
+        style={styles.googleBtn}
+        textStyle={styles.googleBtnText}
+      />
     </View>
   );
 }
@@ -33,7 +41,13 @@ const styles = StyleSheet.create({
     alignItems: "center",
     backgroundColor: "#fff",
   },
-  logoContainer: { marginBottom: 48 },
+  logoContainer: {
+    marginBottom: 48,
+    width: 280,
+    height: 280 * (74 / 313),
+    justifyContent: "center",
+    alignItems: "center",
+  },
   logoText: {
     fontSize: 40,
     color: "#2E8E14",
@@ -51,41 +65,16 @@ const styles = StyleSheet.create({
     marginLeft: 4,
   },
   kakaoBtn: {
-    flexDirection: "row",
-    alignItems: "center",
     backgroundColor: "#FFEB00",
-    borderRadius: 10,
-    height: 45,
-    width: 270,
     marginBottom: 16,
-    paddingHorizontal: 12,
   },
   kakaoBtnText: {
     color: "#3C1E1E",
-    fontSize: 16,
-    fontWeight: "bold",
-    flex: 1,
-    textAlign: "center",
   },
   googleBtn: {
-    flexDirection: "row",
-    alignItems: "center",
     backgroundColor: "#EFEFEF",
-    borderRadius: 10,
-    height: 45,
-    width: 270,
-    paddingHorizontal: 12,
   },
   googleBtnText: {
     color: "#222",
-    fontSize: 16,
-    fontWeight: "bold",
-    flex: 1,
-    textAlign: "center",
-  },
-  btnIcon: {
-    width: 26,
-    height: 26,
-    marginRight: 10,
   },
 });
