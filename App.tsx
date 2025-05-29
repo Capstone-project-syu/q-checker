@@ -15,7 +15,7 @@ export default function App() {
         <SvgUri
           width="100%" // 화면 너비에 맞게 설정
           height="100%" // 화면 높이에 맞게 설정
-          uri={require("./assets/logo.svg")} // 로고 파일 불러오기
+          uri="assets/images/logo-checked.svg" // 로고 파일 불러오기
         />
       </View>
     </SafeAreaView>
