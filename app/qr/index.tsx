@@ -14,7 +14,7 @@ export default function QRScreen() {
           <SvgUri
             width={200}
             height={200}
-            uri={require("../../components/qr/test-qr.svg")}
+            uri={require("@/components/qr/test-qr.svg")}
           />
         </View>
       </View>
