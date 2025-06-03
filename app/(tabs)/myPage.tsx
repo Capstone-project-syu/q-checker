@@ -1,8 +1,15 @@
 import { LogoChecked } from "@/components/LogoChecked";
 import { ProfileImage } from "@/components/profile/ProfileImage";
 import { Button } from "@/components/shared/Button/Button.component";
+import { router } from "expo-router";
 import React, { useState } from "react";
-import { StyleSheet, Text, TextInput, View } from "react-native";
+import {
+  StyleSheet,
+  Text,
+  TextInput,
+  TouchableOpacity,
+  View,
+} from "react-native";
 
 export default function MyPage() {
   const [isEditing, setIsEditing] = useState(false);
@@ -15,6 +22,10 @@ export default function MyPage() {
     } else {
       setIsEditing(true);
     }
+  };
+
+  const handleAttendancePress = () => {
+    router.push("/qr");
   };
 
   return (
@@ -60,7 +71,10 @@ export default function MyPage() {
         </View>
       </View>
 
-      <View style={styles.historySection}>
+      <TouchableOpacity
+        style={styles.historySection}
+        onPress={handleAttendancePress}
+      >
         <Text style={styles.sectionTitle}>출결 내역</Text>
         <View style={styles.historyItem}>
           <Text style={styles.historyDate}>yyyy-mm-dd</Text>
@@ -72,7 +86,7 @@ export default function MyPage() {
           <Text style={styles.historyText}>개강 OT</Text>
           <Text style={styles.historyTime}>xx시 oo분</Text>
         </View>
-      </View>
+      </TouchableOpacity>
     </View>
   );
 }
