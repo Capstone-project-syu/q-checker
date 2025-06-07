@@ -22,14 +22,15 @@ export default function InputContainer({
     <View style={styles.container}>
       <Text style={styles.label}>{label}</Text>
 
-      <TouchableOpacity style={[styles.inputWrapper, isGps && styles.gpsBackground]}>
+      <TouchableOpacity style={[styles.inputWrapper, isGps && styles.gpsBackground]} 
+          onPress={isGps ? onPress : undefined}>
         <TextInput
           value={value}
           onChangeText={onChangeText}
           editable={!isGps}
-          onPressIn={isGps ? onPress : undefined}
           keyboardType={isDuration ? "numeric" : "default"}
           style={[styles.input]}
+          pointerEvents={isGps ? "none" : "auto"}
         />
 
         {isDuration && <Text style={styles.suffix}>분</Text>}

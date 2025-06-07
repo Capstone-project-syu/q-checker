@@ -17,7 +17,7 @@ export default function HomeScreen() {
             </View>
           }
           buttonText="QR 출결"
-          linkTo="../features/QRCheck"
+          linkTo="../QRCheck"
         />
         <ActionButton
           buttonImage={
@@ -26,7 +26,7 @@ export default function HomeScreen() {
             </View>
           }
           buttonText="QR 생성"
-          linkTo="../features/QRGenerate"
+          linkTo="../QRGenerate"
         />
       </Flex>
       <HistoryList />
