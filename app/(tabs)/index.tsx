@@ -1,29 +1,34 @@
-import { Image } from 'expo-image';
 
-import { Column } from '@/components/layout/Column';
-import { Flex } from '@/components/layout/Flex';
-import { StyleSheet } from 'react-native';
-import ActionButton from '../(features)/QRMain/_components/sections/ActionButton/ActionButton.section';
-import HistoryList from '../(features)/QRMain/_components/sections/HistoryList/HistoryList.section';
-
+import { Column } from "@/components/layout/Column";
+import { Flex } from "@/components/layout/Flex";
+import { LogoChecked } from "@/components/LogoChecked";
+import { StyleSheet, View } from "react-native";
+import ActionButton from "../features/QRMain/sections/ActionButton/ActionButton.section";
+import HistoryList from "../features/QRMain/sections/HistoryList/HistoryList.section";
 
 export default function HomeScreen() {
   return (
-    <Column style={styles.container}>
-      {/* qr 출결, 생성 버튼 */}
+    <Column>
       <Flex style={styles.actionButtons}>
-        <ActionButton 
-          buttonImage={<Image source={require('@/assets/images/partial-react-logo.png')} />} 
-          buttonText="QR 출결" 
-          linkTo='../(features)/QRCheck'
+        <ActionButton
+          buttonImage={
+            <View style={styles.logoContainer}>
+              <LogoChecked width="100%" height="100%" />
+            </View>
+          }
+          buttonText="QR 출결"
+          linkTo="../features/QRCheck"
         />
-        <ActionButton 
-          buttonImage={<Image source={require('@/assets/images/partial-react-logo.png')} />} 
-          buttonText="QR 생성" 
-          linkTo='../(features)/QRGenerate'
+        <ActionButton
+          buttonImage={
+            <View style={styles.logoContainer}>
+              <LogoChecked width="100%" height="100%" />
+            </View>
+          }
+          buttonText="QR 생성"
+          linkTo="../features/QRGenerate"
         />
       </Flex>
-      {/* qr 생성 내역 */}
       <HistoryList />
     </Column>
   );
@@ -31,12 +36,14 @@ export default function HomeScreen() {
 
 const styles = StyleSheet.create({
   actionButtons: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    padding: 50,
+    flexDirection: "row",
+    justifyContent: "space-between",
+    padding: 30,
   },
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
+  logoContainer: {
+    width: 60,
+    height: 60,
+    justifyContent: "center",
+    alignItems: "center",
   },
-})
+});
