@@ -1,4 +1,3 @@
-
 import { Column } from "@/components/layout/Column";
 import { Flex } from "@/components/layout/Flex";
 import { LogoChecked } from "@/components/LogoChecked";
