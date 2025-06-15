@@ -10,6 +10,7 @@ export const Button: React.FC<ButtonProps> = (props) => {
     variant = "solid",
     color = "primary",
     disabled = false,
+    onPress = () => {},
   } = props;
 
   return (
@@ -22,6 +23,7 @@ export const Button: React.FC<ButtonProps> = (props) => {
         disabled && styles["container-color-disabled"],
       ]}
       disabled={disabled}
+      onPress={onPress}
     >
       <Typography
         variant="body"
