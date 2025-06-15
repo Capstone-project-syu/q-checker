@@ -3,7 +3,7 @@ import { Button } from "@/components/shared/Button/Button.component";
 import { router, useLocalSearchParams } from "expo-router";
 import { useEffect, useState } from "react";
 import { StyleSheet, Text, View } from "react-native";
-import InputContainer from "../(features)/QRGenerate/_components/InputContainer";
+import InputContainer from "../features/QRGenerate/InputContainer";
 
 export default function QRGenerate() {
   const [eventName, setEventName] = useState("");
