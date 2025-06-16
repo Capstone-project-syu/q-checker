@@ -1,6 +1,7 @@
 import { CameraType, CameraView, useCameraPermissions } from 'expo-camera';
 import { useState } from "react";
-import { StyleSheet, View } from "react-native";
+import { router } from 'expo-router';
+import { Button, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 
 export default function QRCheck() {
     const [facing, setFacing] = useState<CameraType>('back');
@@ -14,16 +15,28 @@ export default function QRCheck() {
     }
 
     if (!permission.granted) {
-        // Camera permissions are not granted yet.
         return (
-            <View></View>
+          <View style={styles.container}>
+            <Text style={styles.message}>We need your permission to show the camera</Text>
+            <Button onPress={requestPermission} title="grant permission" />
+          </View>
         );
-    }
+      }
+
+      const handleQRScanned = () => {
+        try {
+          } catch (e) {
+          }
+        router.push('/');
+      }
 
     return (
         <CameraView
             barcodeScannerSettings={{barcodeTypes:["qr"]}}
-            style={styles.camera}>    
+            style={styles.camera}
+            onBarcodeScanned={
+                handleQRScanned
+            }>    
             <View style={styles.overlay}>
                 <View style={[styles.corner, styles.topLeft]} />
                 <View style={[styles.corner, styles.topRight]} />
@@ -81,5 +94,13 @@ const styles = StyleSheet.create({
         borderRightWidth: 5,
         bottom: 0,
         right: 0,
+    },
+    container: {
+        flex: 1,
+        justifyContent: 'center',
+      },
+    message: {
+    textAlign: 'center',
+    paddingBottom: 10,
     },
 })

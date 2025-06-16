@@ -25,7 +25,7 @@ export default function MyPage() {
   };
 
   const handleAttendancePress = () => {
-    router.push("/qr");
+    router.push("../qr");
   };
 
   return (
