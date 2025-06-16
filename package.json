@@ -13,7 +13,7 @@
   "dependencies": {
     "@expo/server": "^0.6.2",
     "@expo/vector-icons": "^14.1.0",
-    "@react-native-community/datetimepicker": "github:react-native-datetimepicker/datetimepicker",
+    "@react-native-community/datetimepicker": "https://github.com/react-native-datetimepicker/datetimepicker.git",
     "@react-native-seoul/kakao-login": "github:react-native-seoul/kakao-login",
     "@react-navigation/bottom-tabs": "^7.3.10",
     "@react-navigation/elements": "^2.3.8",
@@ -44,7 +44,7 @@
     "react-native": "0.79.2",
     "react-native-gesture-handler": "~2.24.0",
     "react-native-google-places-autocomplete": "^2.5.7",
-    "react-native-maps": "1.20.1",
+    "react-native-maps": "^1.20.1",
     "react-native-reanimated": "~3.17.4",
     "react-native-safe-area-context": "5.4.0",
     "react-native-screens": "~4.10.0",

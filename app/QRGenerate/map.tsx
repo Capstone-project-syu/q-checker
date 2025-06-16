@@ -5,6 +5,7 @@ import { useEffect, useState } from "react";
 import {
   ActivityIndicator,
   Keyboard,
+  Platform,
   StyleSheet,
   Text,
   TextInput,
@@ -21,7 +22,6 @@ export default function MapScreen() {
 
   const params = useLocalSearchParams<{ location?: string }>();
 
-
   useEffect(() => {
     const init = async () => {
       const { status } = await Location.requestForegroundPermissionsAsync();
@@ -29,7 +29,7 @@ export default function MapScreen() {
         console.warn("위치 권한 거부됨");
         return;
       }
-  
+
       // 기존 위치가 있다면 파싱하여 초기값 설정
       if (params.location) {
         const [lat, lng] = params.location.split(",").map(Number);
@@ -44,7 +44,7 @@ export default function MapScreen() {
         setLoading(false);
         return;
       }
-  
+
       // 기존 위치 없으면 현재 위치로 설정
       const loc = await Location.getCurrentPositionAsync({});
       const region = {
@@ -57,7 +57,7 @@ export default function MapScreen() {
       await updateAddress(region);
       setLoading(false);
     };
-  
+
     init();
   }, []);
 
@@ -69,7 +69,9 @@ export default function MapScreen() {
       });
       if (res.length > 0) {
         const addr = res[0];
-        const formatted = `${addr.name ?? ""} ${addr.street ?? ""} ${addr.city ?? ""}`.trim();
+        const formatted = `${addr.name ?? ""} ${addr.street ?? ""} ${
+          addr.city ?? ""
+        }`.trim();
         setSearchQuery(formatted);
       }
     } catch (e) {
@@ -105,7 +107,7 @@ export default function MapScreen() {
       pathname: "/QRGenerate",
       params: {
         location: locationStr,
-        address: searchQuery, // 👈 검색창의 주소 텍스트를 같이 전달
+        address: searchQuery,
       },
     });
   };
@@ -118,10 +120,39 @@ export default function MapScreen() {
     );
   }
 
+  // 웹 환경에서는 지도 대신 주소 검색 UI만 표시
+  if (Platform.OS === "web") {
+    return (
+      <View style={styles.container}>
+        <View style={styles.searchBar}>
+          <Text style={styles.searchIcon}>🔍</Text>
+          <TextInput
+            style={styles.searchInput}
+            placeholder="주소를 입력하세요"
+            value={searchQuery}
+            onChangeText={setSearchQuery}
+            onSubmitEditing={handleSearch}
+            returnKeyType="search"
+          />
+        </View>
+        <View style={styles.webContainer}>
+          <Text style={styles.webMessage}>
+            웹 환경에서는 지도를 표시할 수 없습니다. 주소를 검색하여 위치를
+            선택해주세요.
+          </Text>
+        </View>
+        <View style={styles.buttonContainer}>
+          <Button onPress={handleSelect}>
+            <Text style={styles.selectButtonText}>선택</Text>
+          </Button>
+        </View>
+      </View>
+    );
+  }
+
   return (
     <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
       <View style={styles.container}>
-        {/* 검색창 */}
         <View style={styles.searchBar}>
           <Text style={styles.searchIcon}>🔍</Text>
           <TextInput
@@ -134,7 +165,6 @@ export default function MapScreen() {
           />
         </View>
 
-        {/* 지도 */}
         <MapView
           style={styles.map}
           region={region}
@@ -150,7 +180,6 @@ export default function MapScreen() {
           <Marker coordinate={region} />
         </MapView>
 
-        {/* 선택 버튼 */}
         <View style={styles.buttonContainer}>
           <Button onPress={handleSelect}>
             <Text style={styles.selectButtonText}>선택</Text>
@@ -202,5 +231,16 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
     textAlign: "center",
     padding: 12,
+  },
+  webContainer: {
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center",
+    padding: 20,
+  },
+  webMessage: {
+    fontSize: 16,
+    textAlign: "center",
+    color: "#666",
   },
 });
