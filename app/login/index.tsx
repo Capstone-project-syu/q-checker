@@ -6,10 +6,17 @@ import { LogoChecked } from "@/components/LogoChecked";
 import React from "react";
 import { StyleSheet, View } from "react-native";
 
-export default function LoginScreen() {
-  const handleKakaoLogin = () => {};
+import { router } from 'expo-router';
 
-  const handleGoogleLogin = () => {};
+export default function LoginScreen() {
+
+  const handleKakaoLogin = () => {
+    router.replace("/profile");
+  };
+
+  const handleGoogleLogin = () => {
+    router.replace("/profile");
+  };
 
   return (
     <View style={styles.container}>

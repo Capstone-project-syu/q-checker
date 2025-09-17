@@ -1,6 +1,9 @@
 import { MaterialIcons } from "@expo/vector-icons";
 import type { PropsWithChildren } from "react";
-import { FlatList, Pressable, StyleSheet, Text, View } from "react-native";
+import { FlatList, Pressable, StyleSheet, Text, View, TouchableOpacity } from "react-native";
+import { useQRStore } from "@/store/qrstore";
+
+import { router } from "expo-router";
 
 type HistoryItemData = {
   id: string;
@@ -9,34 +12,15 @@ type HistoryItemData = {
   active: boolean;
 };
 
-const dummyData: HistoryItemData[] = [
-  {
-    id: "1",
-    title: "예시1",
-    date: "2025-06-10",
-    active: true,
-  },
-  {
-    id: "2",
-    title: "예시2",
-    date: "2025-06-11",
-    active: false,
-  },
-  {
-    id: "3",
-    title: "예시3",
-    date: "2025-06-12",
-    active: true,
-  },
-];
-
 export default function HistoryList() {
+  const history = useQRStore((state) => state.history);
+
   return (
     <View style={styles.container}>
       <Text style={styles.header}>QR 생성 내역</Text>
 
       <FlatList
-        data={dummyData}
+        data={history}
         renderItem={({ item }) => (
           <HistoryItem
             title={item.title}
@@ -60,24 +44,30 @@ type HistoryItemProps = PropsWithChildren<{
 }>;
 
 function HistoryItem({ title, date, active }: HistoryItemProps) {
+  const handleAttendancePress = () => {
+    router.push("/qr");
+  };
+
   return (
-    <View style={styles.itemRow}>
-      <View>
-        <Text style={styles.dateText}>{date}</Text>
-        <Text style={styles.titleText}>{title}</Text>
+    <TouchableOpacity onPress={handleAttendancePress}>
+      <View style={styles.itemRow}>
+        <View>
+          <Text style={styles.dateText}>{date}</Text>
+          <Text style={styles.titleText}>{title}</Text>
+        </View>
+        <View style={styles.statusWrapper}>
+          <View
+            style={[
+              styles.statusDot,
+              { backgroundColor: active ? "green" : "gray" },
+            ]}
+          />
+          <Pressable>
+            <MaterialIcons name="more-vert" size={20} color="#333" />
+          </Pressable>
+        </View>
       </View>
-      <View style={styles.statusWrapper}>
-        <View
-          style={[
-            styles.statusDot,
-            { backgroundColor: active ? "green" : "gray" },
-          ]}
-        />
-        <Pressable>
-          <MaterialIcons name="more-vert" size={20} color="#333" />
-        </Pressable>
-      </View>
-    </View>
+    </TouchableOpacity>
   );
 }
 

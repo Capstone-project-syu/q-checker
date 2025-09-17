@@ -2,8 +2,24 @@ import { StyleSheet, Text, View, Pressable } from "react-native";
 import ActionButton from "../features/QRMain/sections/ActionButton/ActionButton.section";
 import HistoryList from "../features/QRMain/sections/HistoryList/HistoryList.section";
 import { LogoChecked } from "@/components/LogoChecked";
+import { useAuthStore } from "@/store/authStore";
+
+import { useEffect } from "react";
+import { useRouter } from "expo-router";
+
 
 export default function HomeScreen() {
+  const isLoggedIn = useAuthStore((state) => state.isLoggedIn);
+  const router = useRouter();
+
+  useEffect(() => {
+    if (router && !isLoggedIn) {
+      router.replace("/login"); 
+    }
+  }, [isLoggedIn]);
+
+  if (!isLoggedIn) return null;
+
   return (
     <View style={styles.container}>
       <View style={styles.logoContainer}>

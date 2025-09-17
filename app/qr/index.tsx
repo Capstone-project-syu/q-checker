@@ -1,5 +1,6 @@
 import { ScrollView, StyleSheet, Text, View } from "react-native";
-import { SvgUri } from "react-native-svg";
+
+//import TestQR from "@/components/qr/test-qr.svg";
 
 export default function QRScreen() {
   return (
@@ -11,11 +12,12 @@ export default function QRScreen() {
 
       <View style={styles.qrSection}>
         <View style={styles.qrContainer}>
-          <SvgUri
+          {/*<TestQR width={200} height={200} />
+          SvgUri
             width={200}
             height={200}
             uri={require("@/components/qr/test-qr.svg")}
-          />
+          /*/}
         </View>
       </View>
 
