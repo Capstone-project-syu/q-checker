@@ -4,9 +4,11 @@ import { useEffect, useState } from "react";
 import { Alert, StyleSheet, Text, View } from "react-native";
 import InputContainer from "../features/QRGenerate/InputContainer";
 
-import { useQRStore } from "@/store/qrstore";
 import { Picker } from "@react-native-picker/picker";
-import uuid from 'react-native-uuid';
+
+import { qrService } from "@/services/qrService";
+
+
 
 
 export default function QRGenerate() {
@@ -38,16 +40,7 @@ export default function QRGenerate() {
     }
 
     try {
-      const now = new Date().toISOString().split("T")[0]; // YYYY-MM-DD
-      useQRStore.getState().addQR({
-        id: uuid.v4(),
-        title: eventName,
-        date: now,
-        active: true,
-        nfc: useNFC,
-        nfcRoom: nfcRoom,
-        gps: gpsAddress,
-      });
+      qrService.createQR(eventName, useNFC, nfcRoom, gpsAddress);
       router.push("/");
     } catch (e) {
       Alert.alert(

@@ -5,6 +5,9 @@ type QRData = {
   title: string;
   date: string;
   active: boolean;
+  nfc: boolean;
+  nfcRoom: string;
+  gps: string;
 };
 
 type QRStore = {

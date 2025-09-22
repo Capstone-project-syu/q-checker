@@ -1,7 +1,7 @@
+import { useQRStore } from "@/store/qrstore";
 import { MaterialIcons } from "@expo/vector-icons";
 import type { PropsWithChildren } from "react";
-import { FlatList, Pressable, StyleSheet, Text, View, TouchableOpacity } from "react-native";
-import { useQRStore } from "@/store/qrstore";
+import { FlatList, Pressable, StyleSheet, Text, TouchableOpacity, View } from "react-native";
 
 import { router } from "expo-router";
 
@@ -48,9 +48,13 @@ function HistoryItem({ title, date, active }: HistoryItemProps) {
     router.push("/qr");
   };
 
+  const handleDPopup = () => {
+    console.log("handleDPopup");
+  };
+
   return (
-    <TouchableOpacity onPress={handleAttendancePress}>
-      <View style={styles.itemRow}>
+    <View style={styles.itemRow}>
+      <TouchableOpacity onPress={handleAttendancePress} style={styles.itemContent}>
         <View>
           <Text style={styles.dateText}>{date}</Text>
           <Text style={styles.titleText}>{title}</Text>
@@ -62,12 +66,12 @@ function HistoryItem({ title, date, active }: HistoryItemProps) {
               { backgroundColor: active ? "green" : "gray" },
             ]}
           />
-          <Pressable>
-            <MaterialIcons name="more-vert" size={20} color="#333" />
-          </Pressable>
         </View>
-      </View>
-    </TouchableOpacity>
+      </TouchableOpacity>
+      <Pressable onPress={handleDPopup} style={{ paddingLeft: 12 }}>
+          <MaterialIcons name="more-vert" size={20} color="#333" />
+      </Pressable>
+    </View>
   );
 }
 
@@ -112,4 +116,11 @@ const styles = StyleSheet.create({
     height: 12,
     borderRadius: 6,
   },
+  itemContent: {
+  flex: 1, // 나머지 공간 전부 차지
+  flexDirection: "row",
+  justifyContent: "space-between",
+  alignItems: "center",
+  paddingLeft: 12,
+},
 });
