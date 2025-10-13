@@ -4,6 +4,7 @@ import { theme } from "../../src/styles/theme";
 
 import { Button } from "@/components/shared/Button/Button.component";
 import { useAuthStore } from "@/store/authStore";
+import { useUserStore } from "@/store/userStore";
 import { router } from "expo-router";
 
 export default function OnboardingScreen() {
@@ -12,8 +13,8 @@ export default function OnboardingScreen() {
   const [nameFocused, setNameFocused] = useState(false);
   const [studentIdFocused, setStudentIdFocused] = useState(false);
 
-  
   const login = useAuthStore((state) => state.login);
+  const setUser = useUserStore((state) => state.setUser);
 
   const handleLogIn = () => {
     if (!name || !studentId) {
@@ -24,8 +25,19 @@ export default function OnboardingScreen() {
       alert("잘못된 학번 형식입니다.");
       return;
     }
-  
-    login(name, studentId);
+
+    // User 객체 생성
+    const user = {
+      id: Date.now().toString(), // 임시 ID
+      email: `${studentId}@student.com`, // 임시 이메일
+      name,
+      studentId,
+      createdAt: new Date().toISOString(),
+      updatedAt: new Date().toISOString(),
+    };
+
+    setUser(user);
+    login();
     router.replace("/");
   };
 

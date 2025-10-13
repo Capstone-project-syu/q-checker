@@ -11,17 +11,21 @@ import {
   View,
 } from "react-native";
 
-import { useAuthStore } from "@/store/authStore";
+import { useUserStore } from "@/store/userStore";
 
 export default function MyPage() {
-  const { name, studentId, updateProfile } = useAuthStore();
+  const { user, updateUser } = useUserStore();
   const [isEditing, setIsEditing] = useState(false);
-  const [editName, setEditName] = useState(name);
-  const [editStudentId, setEditStudentId] = useState(studentId);
+  const [editName, setEditName] = useState(user?.name || "");
+  const [editStudentId, setEditStudentId] = useState(user?.studentId || "");
 
   const handleEdit = () => {
     if (isEditing) {
-      updateProfile(editName, editStudentId);
+      updateUser({
+        name: editName,
+        studentId: editStudentId,
+        updatedAt: new Date().toISOString(),
+      });
       setIsEditing(false);
     } else {
       setIsEditing(true);
@@ -57,8 +61,8 @@ export default function MyPage() {
             </>
           ) : (
             <>
-              <Text style={styles.name}>{name}</Text>
-              <Text style={styles.role}>{studentId}</Text>
+              <Text style={styles.name}>{user?.name}</Text>
+              <Text style={styles.role}>{user?.studentId}</Text>
             </>
           )}
           <View style={styles.buttonContainer}>
@@ -80,7 +84,7 @@ export default function MyPage() {
         onPress={handleAttendancePress}
       >
         <Text style={styles.sectionTitle}>출결 내역</Text>
-        <Text style={styles.section}> 아직 출결 내역이 없습니다. </Text>
+        <Text style={styles.sectionText}> 아직 출결 내역이 없습니다. </Text>
         {/* <View style={styles.historyItem}>
           <Text style={styles.historyDate}>yyyy-mm-dd</Text>
           <Text style={styles.historyText}>신입생 원영회</Text>
@@ -158,6 +162,12 @@ const styles = StyleSheet.create({
     fontSize: 18,
     fontWeight: "bold",
     marginBottom: 15,
+  },
+  sectionText: {
+    fontSize: 14,
+    color: "#666",
+    textAlign: "center",
+    marginTop: 20,
   },
   historyItem: {
     backgroundColor: "white",
