@@ -1,15 +1,45 @@
-// app/login/index.tsx
 import { GoogleIcon } from "@/components/login/icons/GoogleIcon";
 import { KakaoIcon } from "@/components/login/icons/KakaoIcon";
 import { SocialLoginButton } from "@/components/login/SocialLoginButton";
 import { LogoChecked } from "@/components/LogoChecked";
+import { useAuthStore } from "@/stores/authStore";
+import { useUserStore } from "@/stores/userStore";
+import { useRouter } from "expo-router";
 import React from "react";
 import { StyleSheet, View } from "react-native";
 
 export default function LoginScreen() {
-  const handleKakaoLogin = () => {};
+  const { login } = useAuthStore();
+  const { setUser } = useUserStore();
+  const router = useRouter();
 
-  const handleGoogleLogin = () => {};
+  const handleKakaoLogin = () => {
+    // 간단한 카카오 로그인 시뮬레이션
+    const mockUser = {
+      id: "kakao_123",
+      name: "카카오 사용자",
+      email: "kakao@example.com",
+      profileImage: "https://example.com/kakao.jpg",
+    };
+
+    login("kakao_token_123", "kakao");
+    setUser(mockUser);
+    router.replace("/(tabs)");
+  };
+
+  const handleGoogleLogin = () => {
+    // 간단한 구글 로그인 시뮬레이션
+    const mockUser = {
+      id: "google_123",
+      name: "구글 사용자",
+      email: "google@gmail.com",
+      profileImage: "https://example.com/google.jpg",
+    };
+
+    login("google_token_123", "google");
+    setUser(mockUser);
+    router.replace("/(tabs)");
+  };
 
   return (
     <View style={styles.container}>
@@ -47,22 +77,6 @@ const styles = StyleSheet.create({
     height: 280 * (74 / 313),
     justifyContent: "center",
     alignItems: "center",
-  },
-  logoText: {
-    fontSize: 40,
-    color: "#2E8E14",
-    fontWeight: "700",
-    letterSpacing: -2,
-  },
-  logoTextBold: {
-    color: "#34A853",
-    fontWeight: "700",
-  },
-  logoCheck: {
-    color: "#ED1C24",
-    fontWeight: "900",
-    fontSize: 32,
-    marginLeft: 4,
   },
   kakaoBtn: {
     backgroundColor: "#FFEB00",

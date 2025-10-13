@@ -1,27 +1,31 @@
 import { LogoChecked } from "@/components/LogoChecked";
 import { ProfileImage } from "@/components/profile/ProfileImage";
 import { Button } from "@/components/shared/Button/Button.component";
+import { useAuthStore } from "@/stores/authStore";
+import { useUserStore } from "@/stores/userStore";
 import { router } from "expo-router";
-import React, { useState } from "react";
-import {
-  StyleSheet,
-  Text,
-  TextInput,
-  TouchableOpacity,
-  View,
-} from "react-native";
+import React from "react";
+import { Alert, StyleSheet, Text, TouchableOpacity, View } from "react-native";
 
 export default function MyPage() {
-  const [isEditing, setIsEditing] = useState(false);
-  const [name, setName] = useState("이름");
-  const [role, setRole] = useState("직번");
+  const { logout } = useAuthStore();
+  const { user, clearUser } = useUserStore();
 
-  const handleEdit = () => {
-    if (isEditing) {
-      setIsEditing(false);
-    } else {
-      setIsEditing(true);
-    }
+  const handleLogout = () => {
+    Alert.alert("로그아웃", "정말 로그아웃하시겠습니까?", [
+      {
+        text: "취소",
+        style: "cancel",
+      },
+      {
+        text: "로그아웃",
+        onPress: () => {
+          logout();
+          clearUser();
+          router.replace("/login");
+        },
+      },
+    ]);
   };
 
   const handleAttendancePress = () => {
@@ -36,38 +40,17 @@ export default function MyPage() {
       <View style={styles.profileSection}>
         <ProfileImage width={100} height={100} />
         <View style={styles.infoContainer}>
-          {isEditing ? (
-            <>
-              <TextInput
-                style={[styles.name, styles.input]}
-                value={name}
-                onChangeText={setName}
-                placeholder="이름"
-              />
-              <TextInput
-                style={[styles.role, styles.input]}
-                value={role}
-                onChangeText={setRole}
-                placeholder="직번"
-              />
-            </>
-          ) : (
-            <>
-              <Text style={styles.name}>{name}</Text>
-              <Text style={styles.role}>{role}</Text>
-            </>
-          )}
-          <View style={styles.buttonContainer}>
-            <Button
-              size="sm"
-              variant="solid"
-              color="primary"
-              style={styles.editButton}
-              onPress={handleEdit}
-            >
-              {isEditing ? "저장" : "정보 수정"}
-            </Button>
-          </View>
+          <Text style={styles.name}>{user?.name || "사용자"}</Text>
+          <Text style={styles.email}>{user?.email || "이메일"}</Text>
+          <Button
+            size="sm"
+            variant="outline"
+            color="danger"
+            style={styles.logoutButton}
+            onPress={handleLogout}
+          >
+            로그아웃
+          </Button>
         </View>
       </View>
 
@@ -77,14 +60,14 @@ export default function MyPage() {
       >
         <Text style={styles.sectionTitle}>출결 내역</Text>
         <View style={styles.historyItem}>
-          <Text style={styles.historyDate}>yyyy-mm-dd</Text>
+          <Text style={styles.historyDate}>2024-01-15</Text>
           <Text style={styles.historyText}>신입생 원영회</Text>
-          <Text style={styles.historyTime}>xx시 oo분</Text>
+          <Text style={styles.historyTime}>14시 00분</Text>
         </View>
         <View style={styles.historyItem}>
-          <Text style={styles.historyDate}>yyyy-mm-dd</Text>
+          <Text style={styles.historyDate}>2024-01-20</Text>
           <Text style={styles.historyText}>개강 OT</Text>
-          <Text style={styles.historyTime}>xx시 oo분</Text>
+          <Text style={styles.historyTime}>10시 30분</Text>
         </View>
       </TouchableOpacity>
     </View>
@@ -116,35 +99,20 @@ const styles = StyleSheet.create({
     alignItems: "center",
     paddingHorizontal: 20,
   },
-  buttonContainer: {
-    width: "100%",
-    alignItems: "flex-end",
-    marginTop: 10,
-  },
   name: {
     fontSize: 18,
     fontWeight: "bold",
     marginBottom: 5,
   },
-  role: {
+  email: {
     fontSize: 16,
     color: "#666",
-    marginBottom: 15,
+    marginBottom: 20,
   },
-  editButton: {
+  logoutButton: {
     borderRadius: 20,
     paddingHorizontal: 20,
     paddingVertical: 8,
-  },
-  input: {
-    borderWidth: 1,
-    borderColor: "#ddd",
-    borderRadius: 8,
-    paddingHorizontal: 12,
-    paddingVertical: 6,
-    minWidth: 200,
-    textAlign: "center",
-    marginBottom: 10,
   },
   historySection: {
     padding: 20,
