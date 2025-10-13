@@ -8,6 +8,15 @@
     "scheme": "qchecker",
     "userInterfaceStyle": "automatic",
     "newArchEnabled": true,
+    "runtimeVersion": {
+      "policy": "appVersion"
+    },
+    "updates": {
+      "requestHeaders": {
+        "expo-channel-name": "qchecker"
+      },
+      "url": "https://u.expo.dev/369ea854-2f0b-47ba-9c62-5ef939d91326"
+    },
     "ios": {
       "supportsTablet": true
     },
@@ -16,14 +25,34 @@
         "foregroundImage": "./assets/images/adaptive-icon.png",
         "backgroundColor": "#ffffff"
       },
-      "edgeToEdgeEnabled": true
-    },
-    "web": {
-      "bundler": "metro",
-      "output": "static",
-      "favicon": "./assets/images/favicon.png"
+      "edgeToEdgeEnabled": true,
+      "package": "com.sumin04.qchecker",
+      "config": {
+        "googleMaps": {
+          "apiKey": "process.env.GOOGLE_MAPS_API_KEY"
+        }
+      },
+      "web": {
+        "bundler": "metro",
+        "output": "static",
+        "favicon": "./assets/images/favicon.png"
+      },
+      "permissions": [
+        "android.permission.CAMERA",
+        "android.permission.RECORD_AUDIO",
+        "android.permission.NFC"
+      ]
     },
     "plugins": [
+      [
+        "expo-camera",
+        {
+          "cameraPermission": "Allow $(PRODUCT_NAME) to access your camera",
+          "microphonePermission": "Allow $(PRODUCT_NAME) to access your microphone",
+          "recordAudioAndroid": true,
+          "nfcPermission": "Allow $(PRODUCT_NAME) to access your NFC"
+        }
+      ],
       "expo-router",
       [
         "expo-splash-screen",
@@ -34,10 +63,17 @@
           "backgroundColor": "#ffffff"
         }
       ],
-      "expo-secure-store"
+      "expo-secure-store",
+      "expo-web-browser"
     ],
     "experiments": {
       "typedRoutes": true
+    },
+    "extra": {
+      "router": {},
+      "eas": {
+        "projectId": "369ea854-2f0b-47ba-9c62-5ef939d91326"
+      }
     }
   }
 }
