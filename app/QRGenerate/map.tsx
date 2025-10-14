@@ -104,7 +104,7 @@ export default function MapScreen() {
       pathname: "/QRGenerate",
       params: {
         location: locationStr,
-        address: searchQuery, // 👈 검색창의 주소 텍스트를 같이 전달
+        address: searchQuery,
       },
     });
   };
@@ -113,6 +113,36 @@ export default function MapScreen() {
     return (
       <View style={styles.loadingContainer}>
         <ActivityIndicator size="large" color="#007e1c" />
+      </View>
+    );
+  }
+
+  // 웹 환경에서는 지도 대신 주소 검색 UI만 표시
+  if (Platform.OS === "web") {
+    return (
+      <View style={styles.container}>
+        <View style={styles.searchBar}>
+          <Text style={styles.searchIcon}>🔍</Text>
+          <TextInput
+            style={styles.searchInput}
+            placeholder="주소를 입력하세요"
+            value={searchQuery}
+            onChangeText={setSearchQuery}
+            onSubmitEditing={handleSearch}
+            returnKeyType="search"
+          />
+        </View>
+        <View style={styles.webContainer}>
+          <Text style={styles.webMessage}>
+            웹 환경에서는 지도를 표시할 수 없습니다. 주소를 검색하여 위치를
+            선택해주세요.
+          </Text>
+        </View>
+        <View style={styles.buttonContainer}>
+          <Button onPress={handleSelect}>
+            <Text style={styles.selectButtonText}>선택</Text>
+          </Button>
+        </View>
       </View>
     );
   }
@@ -201,5 +231,16 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
     textAlign: "center",
     padding: 12,
+  },
+  webContainer: {
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center",
+    padding: 20,
+  },
+  webMessage: {
+    fontSize: 16,
+    textAlign: "center",
+    color: "#666",
   },
 });
