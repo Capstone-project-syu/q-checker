@@ -21,7 +21,7 @@
     "@react-navigation/native": "^7.1.6",
     "axios": "^1.9.0",
     "dayjs": "^1.11.18",
-    "expo": "53.0.22",
+    "expo": "~53.0.23",
     "expo-auth-session": "~6.2.1",
     "expo-blur": "~14.1.4",
     "expo-build-properties": "~0.14.8",
@@ -45,11 +45,11 @@
     "geolib": "^3.3.4",
     "react": "19.0.0",
     "react-dom": "19.0.0",
-    "react-native": "0.79.6",
+    "react-native": "0.79.5",
     "react-native-dotenv": "^3.4.11",
     "react-native-gesture-handler": "~2.24.0",
     "react-native-google-places-autocomplete": "^2.5.7",
-    "react-native-maps": "1.26.15",
+    "react-native-maps": "1.22.6",
     "react-native-nfc-manager": "^3.16.3",
     "react-native-reanimated": "~3.17.4",
     "react-native-safe-area-context": "5.4.0",
@@ -69,5 +69,12 @@
     "react-native-svg-transformer": "^1.5.1",
     "typescript": "~5.8.3"
   },
-  "private": true
+  "private": true,
+  "expo": {
+    "doctor": {
+      "reactNativeDirectoryCheck": {
+        "listUnknownPackages": false
+      }
+    }
+  }
 }
