@@ -6,8 +6,7 @@ import { Alert, StyleSheet, Text, View } from "react-native";
 import InputContainer from "../features/QRGenerate/InputContainer";
 
 import { createQR } from "@/services/qrService";
-import EventRequest from "@/types/eventRequest";
-
+import EventRequest from "../../types/event-request";
 
 export default function QRGenerate() {
   const [eventName, setEventName] = useState("");

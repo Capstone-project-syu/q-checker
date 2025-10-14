@@ -1,6 +1,6 @@
 import React from "react";
 import { StyleSheet, View } from "react-native";
-import QRCode from "react-native-qrcode-svg";
+// import QRCode from "react-native-qrcode-svg";
 
 interface QRCodeScannerProps {
   qrData?: string;
@@ -13,12 +13,12 @@ export const QRCodeScanner = ({ qrData, size = 200 }: QRCodeScannerProps) => {
 
   return (
     <View style={styles.container}>
-      <QRCode
+      {/* <QRCode
         value={displayValue}
         size={size}
         backgroundColor="white"
         color="black"
-      />
+      /> */}
     </View>
   );
 };

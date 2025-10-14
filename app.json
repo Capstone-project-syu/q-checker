@@ -18,7 +18,8 @@
       "url": "https://u.expo.dev/369ea854-2f0b-47ba-9c62-5ef939d91326"
     },
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": true,
+      "bundleIdentifier": "com.sumin04.qchecker"
     },
     "android": {
       "adaptiveIcon": {
@@ -31,11 +32,6 @@
         "googleMaps": {
           "apiKey": "process.env.GOOGLE_MAPS_API_KEY"
         }
-      },
-      "web": {
-        "bundler": "metro",
-        "output": "static",
-        "favicon": "./assets/images/favicon.png"
       },
       "permissions": [
         "android.permission.CAMERA",
@@ -64,7 +60,31 @@
         }
       ],
       "expo-secure-store",
-      "expo-web-browser"
+      "expo-web-browser",
+      [
+        "@react-native-seoul/kakao-login",
+        {
+          "kakaoAppKey": "ab4bfa48ea99a36918a4361345cfdee9",
+          "kotlinVersion": "2.0.21"
+        }
+      ],
+      [
+        "expo-build-properties",
+        {
+          "android": {
+            "extraMavenRepos": [
+              "https://devrepo.kakao.com/nexus/content/groups/public/"
+            ]
+          }
+        }
+      ],
+      [
+        "react-native-maps",
+        {
+          "iosGoogleMapsApiKey": "AIzaSyARVb-1bIZhwvhdNBFbK11PWZcSAWjsvAE",
+          "androidGoogleMapsApiKey": "AIzaSyARVb-1bIZhwvhdNBFbK11PWZcSAWjsvAE"
+        }
+      ]
     ],
     "experiments": {
       "typedRoutes": true
@@ -77,4 +97,3 @@
     }
   }
 }
-
