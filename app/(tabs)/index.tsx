@@ -9,16 +9,7 @@ import { useEffect } from "react";
 
 
 export default function HomeScreen() {
-  const isLoggedIn = useAuthStore((state) => state.isLoggedIn);
   const router = useRouter();
-
-  useEffect(() => {
-    if (router && !isLoggedIn) {
-      router.replace("/login"); 
-    }
-  }, [isLoggedIn]);
-
-  if (!isLoggedIn) return null;
 
   return (
     <View style={styles.container}>

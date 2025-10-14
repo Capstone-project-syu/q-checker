@@ -4,23 +4,20 @@ import { router, useLocalSearchParams } from "expo-router";
 import { useEffect, useState } from "react";
 import {
   ActivityIndicator,
-  Keyboard,
   StyleSheet,
   Text,
   TextInput,
-  TouchableWithoutFeedback,
   View,
 } from "react-native";
-import MapView, { Marker, Region } from "react-native-maps";
+// import MapView, { Marker, Region } from "react-native-maps";
 
 export default function MapScreen() {
-  const [region, setRegion] = useState<Region | null>(null);
+  const [region, setRegion] = useState<any>(null);
   const [searchQuery, setSearchQuery] = useState("");
   const [loading, setLoading] = useState(true);
   const [userInteracted, setUserInteracted] = useState(false);
 
   const params = useLocalSearchParams<{ location?: string }>();
-
 
   useEffect(() => {
     const init = async () => {
@@ -29,7 +26,7 @@ export default function MapScreen() {
         console.warn("위치 권한 거부됨");
         return;
       }
-  
+
       // 기존 위치가 있다면 파싱하여 초기값 설정
       if (params.location) {
         const [lat, lng] = params.location.split(",").map(Number);
@@ -44,7 +41,7 @@ export default function MapScreen() {
         setLoading(false);
         return;
       }
-  
+
       // 기존 위치 없으면 현재 위치로 설정
       const loc = await Location.getCurrentPositionAsync({});
       const region = {
@@ -57,11 +54,11 @@ export default function MapScreen() {
       await updateAddress(region);
       setLoading(false);
     };
-  
+
     init();
   }, []);
 
-  const updateAddress = async (reg: Region) => {
+  const updateAddress = async (reg: any) => {
     try {
       const res = await Location.reverseGeocodeAsync({
         latitude: reg.latitude,
@@ -69,7 +66,9 @@ export default function MapScreen() {
       });
       if (res.length > 0) {
         const addr = res[0];
-        const formatted = `${addr.name ?? ""} ${addr.street ?? ""} ${addr.city ?? ""}`.trim();
+        const formatted = `${addr.name ?? ""} ${addr.street ?? ""} ${
+          addr.city ?? ""
+        }`.trim();
         setSearchQuery(formatted);
       }
     } catch (e) {
@@ -119,45 +118,45 @@ export default function MapScreen() {
   }
 
   return (
-    <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
-      <View style={styles.container}>
-        {/* 검색창 */}
-        <View style={styles.searchBar}>
-          <Text style={styles.searchIcon}>🔍</Text>
-          <TextInput
-            style={styles.searchInput}
-            placeholder="장소를 검색하세요"
-            value={searchQuery}
-            onChangeText={setSearchQuery}
-            onSubmitEditing={handleSearch}
-            returnKeyType="search"
-          />
-        </View>
-
-        {/* 지도 */}
-        <MapView
-          style={styles.map}
-          region={region}
-          onTouchStart={() => setUserInteracted(true)}
-          onRegionChangeComplete={(reg) => {
-            setRegion(reg);
-            if (userInteracted) {
-              updateAddress(reg);
-              setUserInteracted(false);
-            }
-          }}
-        >
-          <Marker coordinate={region} />
-        </MapView>
-
-        {/* 선택 버튼 */}
-        <View style={styles.buttonContainer}>
-          <Button onPress={handleSelect}>
-            <Text style={styles.selectButtonText}>선택</Text>
-          </Button>
-        </View>
+    // <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
+    <View style={styles.container}>
+      {/* 검색창 */}
+      <View style={styles.searchBar}>
+        <Text style={styles.searchIcon}>🔍</Text>
+        <TextInput
+          style={styles.searchInput}
+          placeholder="장소를 검색하세요"
+          value={searchQuery}
+          onChangeText={setSearchQuery}
+          onSubmitEditing={handleSearch}
+          returnKeyType="search"
+        />
       </View>
-    </TouchableWithoutFeedback>
+
+      {/* 지도 */}
+      {/* <MapView
+        style={styles.map}
+        region={region}
+        onTouchStart={() => setUserInteracted(true)}
+        onRegionChangeComplete={(reg) => {
+          setRegion(reg);
+          if (userInteracted) {
+            updateAddress(reg);
+            setUserInteracted(false);
+          }
+        }}
+      >
+        <Marker coordinate={region} />
+      </MapView> */}
+
+      {/* 선택 버튼 */}
+      <View style={styles.buttonContainer}>
+        <Button onPress={handleSelect}>
+          <Text style={styles.selectButtonText}>선택</Text>
+        </Button>
+      </View>
+    </View>
+    // </TouchableWithoutFeedback>
   );
 }
 
