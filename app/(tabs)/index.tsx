@@ -1,11 +1,11 @@
-import { StyleSheet, Text, View, Pressable } from "react-native";
-import ActionButton from "../features/QRMain/sections/ActionButton/ActionButton.section";
-import HistoryList from "../features/QRMain/sections/HistoryList/HistoryList.section";
 import { LogoChecked } from "@/components/LogoChecked";
 import { useAuthStore } from "@/store/authStore";
+import { StyleSheet, View } from "react-native";
+import ActionButton from "../features/QRMain/sections/ActionButton/ActionButton.section";
+import HistoryList from "../features/QRMain/sections/HistoryList/HistoryList.section";
 
-import { useEffect } from "react";
 import { useRouter } from "expo-router";
+import { useEffect } from "react";
 
 
 export default function HomeScreen() {
@@ -33,7 +33,7 @@ export default function HomeScreen() {
       </View>
 
       {/* 리스트 영역 */}
-      <HistoryList style={styles.historyContainer} />
+      <HistoryList />
     </View>
   );
 }

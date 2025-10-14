@@ -1,19 +1,16 @@
 import { RelativePathString, useRouter } from 'expo-router';
-import type { ReactElement } from 'react';
-import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+import { StyleSheet, Text, TouchableOpacity } from 'react-native';
 
 type Props =  {
-    buttonImage: ReactElement;
     buttonText: string;
     linkTo: RelativePathString;
 }
 
-export default function ActionButton({ buttonImage, buttonText, linkTo }: Props) {
+export default function ActionButton({ buttonText, linkTo }: Props) {
     const router = useRouter();
     
     return (
         <TouchableOpacity style={styles.container} onPress={() => router.push(linkTo)}>
-            <View>{buttonImage}</View>
             <Text>{buttonText}</Text>
         </TouchableOpacity>
     )

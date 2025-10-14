@@ -1,14 +1,12 @@
 import { Button } from "@/components/shared/Button/Button.component";
+import { Picker } from "@react-native-picker/picker";
 import { router, useLocalSearchParams } from "expo-router";
 import { useEffect, useState } from "react";
 import { Alert, StyleSheet, Text, View } from "react-native";
 import InputContainer from "../features/QRGenerate/InputContainer";
 
-import { Picker } from "@react-native-picker/picker";
-
-import { qrService } from "@/services/qrService";
-
-
+import { createQR } from "@/services/qrService";
+import EventRequest from "@/types/eventRequest";
 
 
 export default function QRGenerate() {
@@ -34,13 +32,25 @@ export default function QRGenerate() {
 
 
   const handleCreate = async () => {
-    if (!eventName || !duration || !gpsAddress) {
-      console.log("모든 항목을 입력해주세요.");
+    if (!eventName || !duration || (useNFC ? !nfcRoom : !gpsAddress)) {
+      Alert.alert("입력 오류", "모든 항목을 입력해주세요.");
       return;
     }
 
     try {
-      qrService.createQR(eventName, useNFC, nfcRoom, gpsAddress);
+      const newEvent: EventRequest = {
+        eventTitle: eventName,
+        eventDescription: useNFC ? `NFC 강의실 ${nfcRoom}` : `GPS 위치 ${gpsAddress}`,
+        eventDatetime: new Date().toISOString(),
+        eventLocation: useNFC ? nfcRoom : gpsAddress,
+        latitude: useNFC ? 0 : Number(gpsCoords.split(",")[0] || 0),
+        longitude: useNFC ? 0 : Number(gpsCoords.split(",")[1] || 0),
+        validRadius: 100,
+      };
+      
+      await createQR(newEvent);
+      console.log("QR 생성 완료:", newEvent);
+      Alert.alert("QR 생성 성공", "QR 코드가 생성되었습니다.");
       router.push("/");
     } catch (e) {
       Alert.alert(

@@ -1,24 +1,33 @@
+import { QRCodeScanner } from "@/components/qr/QRCodeScanner";
 import { ScrollView, StyleSheet, Text, View } from "react-native";
 
-//import TestQR from "@/components/qr/test-qr.svg";
-
 export default function QRScreen() {
+
+  const qrList: any[] = [];
+  
+  // 가장 최근에 생성된 활성 QR 코드 찾기
+  const activeQR = qrList.find(qr => qr.active) || qrList[qrList.length - 1];
+  
+  const qrData = null
+
   return (
     <View style={styles.container}>
       <View style={styles.header}>
         <Text style={styles.headerTitle}>QR 코드</Text>
-        <Text style={styles.headerSubtitle}>비활성화</Text>
+        <Text style={styles.headerSubtitle}>
+          {activeQR ? "활성화" : "비활성화"}
+        </Text>
       </View>
 
       <View style={styles.qrSection}>
         <View style={styles.qrContainer}>
-          {/*<TestQR width={200} height={200} />
-          SvgUri
-            width={200}
-            height={200}
-            uri={require("@/components/qr/test-qr.svg")}
-          /*/}
+          <QRCodeScanner qrData={qrData || undefined} size={200} />
         </View>
+        {activeQR && (
+          <Text style={styles.qrInfo}>
+            이벤트: {activeQR.title}
+          </Text>
+        )}
       </View>
 
       <View style={styles.listSection}>
@@ -125,5 +134,10 @@ const styles = StyleSheet.create({
   time: {
     fontSize: 14,
     color: "#666",
+  },
+  qrInfo: { // qrInfo 스타일 추가
+    marginTop: 15,
+    fontSize: 16,
+    fontWeight: '500',
   },
 });

@@ -57,7 +57,7 @@ export default function QRCheck() {
             {mode === 'qr' ? (
                 <CameraView
                     barcodeScannerSettings={{barcodeTypes:["qr"]}}
-                    style={styles.camera}
+                    style={styles.checkContent}
                     onBarcodeScanned={
                         handleQRScanned
                     }>    
@@ -69,9 +69,9 @@ export default function QRCheck() {
                     </View>            
                 </CameraView>
             ) : (
-                <View>
+                <View style={styles.checkContent}>
                     <TouchableOpacity onPress={readNdef}>
-                        <Text>Scan a Tag</Text>
+                        <Text>NFC 태그를 접촉해주세요.</Text>
                     </TouchableOpacity>
                 </View>
             )}
@@ -83,7 +83,7 @@ export default function QRCheck() {
 const styles = StyleSheet.create({
     header: { padding: 16, backgroundColor: "#eee" },
     switchText: { fontSize: 16, fontWeight: "bold" },
-    camera: {
+    checkContent: {
         width: '100%',
         height: '80%',
     },
