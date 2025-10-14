@@ -1,18 +1,24 @@
 import React from "react";
 import { StyleSheet, View } from "react-native";
-import QRCode from "react-native-qrcode-svg";
+// import QRCode from "react-native-qrcode-svg";
 
-export const QRCodeScanner = () => {
-  const dummyQRValue = "https://q-checker.com/attendance/123456";
+interface QRCodeScannerProps {
+  qrData?: string;
+  size?: number;
+}
+
+export const QRCodeScanner = ({ qrData, size = 200 }: QRCodeScannerProps) => {
+  // QR 데이터가 없으면 기본 메시지 표시
+  const displayValue = qrData || "QR 코드 데이터가 없습니다.";
 
   return (
     <View style={styles.container}>
-      <QRCode
-        value={dummyQRValue}
-        size={200}
+      {/* <QRCode
+        value={displayValue}
+        size={size}
         backgroundColor="white"
         color="black"
-      />
+      /> */}
     </View>
   );
 };

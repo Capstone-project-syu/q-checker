@@ -1,15 +1,22 @@
 // app/login/index.tsx
+import React from "react";
+import { StyleSheet, Text, View } from "react-native";
+
 import { GoogleIcon } from "@/components/login/icons/GoogleIcon";
 import { KakaoIcon } from "@/components/login/icons/KakaoIcon";
 import { SocialLoginButton } from "@/components/login/SocialLoginButton";
 import { LogoChecked } from "@/components/LogoChecked";
-import React from "react";
-import { StyleSheet, View } from "react-native";
+import { router } from "expo-router";
+// import MapView from "react-native-maps";
 
 export default function LoginScreen() {
-  const handleKakaoLogin = () => {};
+  const handleKakaoLogin = () => {
+    router.replace("/profile");
+  };
 
-  const handleGoogleLogin = () => {};
+  const handleGoogleLogin = () => {
+    router.replace("/profile");
+  };
 
   return (
     <View style={styles.container}>
@@ -30,6 +37,8 @@ export default function LoginScreen() {
         style={styles.googleBtn}
         textStyle={styles.googleBtnText}
       />
+      {/* <MapView style={{ flex: 1, width: "100%" }} /> */}
+      <Text>Hello</Text>
     </View>
   );
 }

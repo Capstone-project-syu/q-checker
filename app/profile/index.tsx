@@ -2,11 +2,32 @@ import React, { useState } from "react";
 import { StyleSheet, Text, TextInput, View } from "react-native";
 import { theme } from "../../src/styles/theme";
 
+import { Button } from "@/components/shared/Button/Button.component";
+import { useAuthStore } from "@/store/authStore";
+import { router } from "expo-router";
+
 export default function OnboardingScreen() {
   const [name, setName] = useState("");
   const [studentId, setStudentId] = useState("");
   const [nameFocused, setNameFocused] = useState(false);
   const [studentIdFocused, setStudentIdFocused] = useState(false);
+
+  
+  const login = useAuthStore((state) => state.login);
+
+  const handleLogIn = () => {
+    if (!name || !studentId) {
+      alert("이름과 학번을 모두 입력해주세요.");
+      return;
+    }
+    if (studentId.length != 10) {
+      alert("잘못된 학번 형식입니다.");
+      return;
+    }
+  
+    login(name, studentId);
+    router.replace("/");
+  };
 
   return (
     <View style={styles.container}>
@@ -41,6 +62,12 @@ export default function OnboardingScreen() {
           onFocus={() => setStudentIdFocused(true)}
           onBlur={() => setStudentIdFocused(false)}
         />
+      </View>
+
+      <View style={styles.buttonContainer}>
+        <Button onPress={handleLogIn}>
+          <Text style={styles.selectButtonText}>완료</Text>
+        </Button>
       </View>
     </View>
   );
@@ -98,5 +125,15 @@ const styles = StyleSheet.create({
   inputFocused: {
     borderBottomWidth: 2,
     borderBottomColor: theme.colors.primary,
+  },
+  buttonContainer: {
+    padding: 16,
+  },
+  selectButtonText: {
+    color: "#fff",
+    fontSize: 16,
+    fontWeight: "bold",
+    textAlign: "center",
+    padding: 12,
   },
 });

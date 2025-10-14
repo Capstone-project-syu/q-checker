@@ -4,18 +4,15 @@ import { router, useLocalSearchParams } from "expo-router";
 import { useEffect, useState } from "react";
 import {
   ActivityIndicator,
-  Keyboard,
-  Platform,
   StyleSheet,
   Text,
   TextInput,
-  TouchableWithoutFeedback,
   View,
 } from "react-native";
-import MapView, { Marker, Region } from "react-native-maps";
+// import MapView, { Marker, Region } from "react-native-maps";
 
 export default function MapScreen() {
-  const [region, setRegion] = useState<Region | null>(null);
+  const [region, setRegion] = useState<any>(null);
   const [searchQuery, setSearchQuery] = useState("");
   const [loading, setLoading] = useState(true);
   const [userInteracted, setUserInteracted] = useState(false);
@@ -61,7 +58,7 @@ export default function MapScreen() {
     init();
   }, []);
 
-  const updateAddress = async (reg: Region) => {
+  const updateAddress = async (reg: any) => {
     try {
       const res = await Location.reverseGeocodeAsync({
         latitude: reg.latitude,
@@ -151,42 +148,45 @@ export default function MapScreen() {
   }
 
   return (
-    <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
-      <View style={styles.container}>
-        <View style={styles.searchBar}>
-          <Text style={styles.searchIcon}>🔍</Text>
-          <TextInput
-            style={styles.searchInput}
-            placeholder="장소를 검색하세요"
-            value={searchQuery}
-            onChangeText={setSearchQuery}
-            onSubmitEditing={handleSearch}
-            returnKeyType="search"
-          />
-        </View>
-
-        <MapView
-          style={styles.map}
-          region={region}
-          onTouchStart={() => setUserInteracted(true)}
-          onRegionChangeComplete={(reg) => {
-            setRegion(reg);
-            if (userInteracted) {
-              updateAddress(reg);
-              setUserInteracted(false);
-            }
-          }}
-        >
-          <Marker coordinate={region} />
-        </MapView>
-
-        <View style={styles.buttonContainer}>
-          <Button onPress={handleSelect}>
-            <Text style={styles.selectButtonText}>선택</Text>
-          </Button>
-        </View>
+    // <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
+    <View style={styles.container}>
+      {/* 검색창 */}
+      <View style={styles.searchBar}>
+        <Text style={styles.searchIcon}>🔍</Text>
+        <TextInput
+          style={styles.searchInput}
+          placeholder="장소를 검색하세요"
+          value={searchQuery}
+          onChangeText={setSearchQuery}
+          onSubmitEditing={handleSearch}
+          returnKeyType="search"
+        />
       </View>
-    </TouchableWithoutFeedback>
+
+      {/* 지도 */}
+      {/* <MapView
+        style={styles.map}
+        region={region}
+        onTouchStart={() => setUserInteracted(true)}
+        onRegionChangeComplete={(reg) => {
+          setRegion(reg);
+          if (userInteracted) {
+            updateAddress(reg);
+            setUserInteracted(false);
+          }
+        }}
+      >
+        <Marker coordinate={region} />
+      </MapView> */}
+
+      {/* 선택 버튼 */}
+      <View style={styles.buttonContainer}>
+        <Button onPress={handleSelect}>
+          <Text style={styles.selectButtonText}>선택</Text>
+        </Button>
+      </View>
+    </View>
+    // </TouchableWithoutFeedback>
   );
 }
 

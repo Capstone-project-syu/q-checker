@@ -1,18 +1,26 @@
 {
   "cli": {
-    "version": ">= 16.10.1",
+    "version": ">= 16.17.4",
     "appVersionSource": "remote"
   },
   "build": {
     "development": {
       "developmentClient": true,
-      "distribution": "internal"
+      "distribution": "internal",
+      "env": {
+        "APP_VARIANT": "development"
+      }
     },
     "preview": {
-      "distribution": "internal"
+      "distribution": "internal",
+      "channel":"preview",
+      "env": {
+        "APP_VARIANT": "preview"
+      }
     },
     "production": {
-      "autoIncrement": true
+      "autoIncrement": true,
+      "channel": "production"
     }
   },
   "submit": {

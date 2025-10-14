@@ -1,55 +1,89 @@
 import { CameraType, CameraView, useCameraPermissions } from 'expo-camera';
 import { useState } from "react";
-import { router } from 'expo-router';
-import { Button, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+import { Alert, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+import NfcManager, { NfcTech } from 'react-native-nfc-manager';
+
+NfcManager.start();
 
 export default function QRCheck() {
+    const [mode, setMode] = useState<"qr" | "nfc">('qr');
+    
     const [facing, setFacing] = useState<CameraType>('back');
     const [permission, requestPermission] = useCameraPermissions();
 
     const [scanned, setScanned] = useState(false);
     const [qrData, setQrData] = useState<string | null>(null);
 
+    async function readNdef() {
+        try {
+            await NfcManager.requestTechnology(NfcTech.Ndef);
+            const tag = await NfcManager.getTag();
+            console.log("Tag: ", tag);
+        } catch (error) {
+            console.log(error);
+        } finally {
+            NfcManager.cancelTechnologyRequest();
+        }
+    }
+
     if (!permission) {
         return (<View></View>);
     }
 
     if (!permission.granted) {
-        return (
-          <View style={styles.container}>
-            <Text style={styles.message}>We need your permission to show the camera</Text>
-            <Button onPress={requestPermission} title="grant permission" />
-          </View>
-        );
+        requestPermission();
       }
 
       const handleQRScanned = () => {
-        try {
-          } catch (e) {
-          }
-        router.push('/');
+        if (scanned) return;
+        setScanned(true);
+
+        Alert.alert(
+            "인증 실패",
+            "인증에 실패했습니다. 다시 시도해주세요.",
+            [{ text: "확인", onPress: () => setScanned(false) }]
+        );
       }
 
     return (
-        <CameraView
-            barcodeScannerSettings={{barcodeTypes:["qr"]}}
-            style={styles.camera}
-            onBarcodeScanned={
-                handleQRScanned
-            }>    
-            <View style={styles.overlay}>
-                <View style={[styles.corner, styles.topLeft]} />
-                <View style={[styles.corner, styles.topRight]} />
-                <View style={[styles.corner, styles.bottomLeft]} />
-                <View style={[styles.corner, styles.bottomRight]} />
-            </View>            
-        </CameraView>
+        <View>
+            <View style={styles.header}>
+                <TouchableOpacity onPress={() => setMode(mode === 'qr' ? 'nfc' : 'qr')}>
+                <Text style={styles.switchText}>
+                    {mode === 'qr' ? "NFC로 전환" : "QR로 전환"}
+                </Text>
+                </TouchableOpacity>
+            </View>
+            {mode === 'qr' ? (
+                <CameraView
+                    barcodeScannerSettings={{barcodeTypes:["qr"]}}
+                    style={styles.checkContent}
+                    onBarcodeScanned={
+                        handleQRScanned
+                    }>    
+                    <View style={styles.overlay}>
+                        <View style={[styles.corner, styles.topLeft]} />
+                        <View style={[styles.corner, styles.topRight]} />
+                        <View style={[styles.corner, styles.bottomLeft]} />
+                        <View style={[styles.corner, styles.bottomRight]} />
+                    </View>            
+                </CameraView>
+            ) : (
+                <View style={styles.checkContent}>
+                    <TouchableOpacity onPress={readNdef}>
+                        <Text>NFC 태그를 접촉해주세요.</Text>
+                    </TouchableOpacity>
+                </View>
+            )}
+        </View>
     )
 
 }
 
 const styles = StyleSheet.create({
-    camera: {
+    header: { padding: 16, backgroundColor: "#eee" },
+    switchText: { fontSize: 16, fontWeight: "bold" },
+    checkContent: {
         width: '100%',
         height: '80%',
     },

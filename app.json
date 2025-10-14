@@ -8,8 +8,18 @@
     "scheme": "qchecker",
     "userInterfaceStyle": "automatic",
     "newArchEnabled": true,
+    "runtimeVersion": {
+      "policy": "appVersion"
+    },
+    "updates": {
+      "requestHeaders": {
+        "expo-channel-name": "qchecker"
+      },
+      "url": "https://u.expo.dev/369ea854-2f0b-47ba-9c62-5ef939d91326"
+    },
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": true,
+      "bundleIdentifier": "com.sumin04.qchecker"
     },
     "android": {
       "adaptiveIcon": {
@@ -17,20 +27,16 @@
         "backgroundColor": "#ffffff"
       },
       "edgeToEdgeEnabled": true,
-      "package": "com.hyun9758.qchecker",
+      "package": "com.sumin04.qchecker",
       "config": {
         "googleMaps": {
           "apiKey": "process.env.GOOGLE_MAPS_API_KEY"
         }
       },
-      "web": {
-        "bundler": "metro",
-        "output": "static",
-        "favicon": "./assets/images/favicon.png"
-      },
       "permissions": [
         "android.permission.CAMERA",
-        "android.permission.RECORD_AUDIO"
+        "android.permission.RECORD_AUDIO",
+        "android.permission.NFC"
       ]
     },
     "plugins": [
@@ -39,7 +45,8 @@
         {
           "cameraPermission": "Allow $(PRODUCT_NAME) to access your camera",
           "microphonePermission": "Allow $(PRODUCT_NAME) to access your microphone",
-          "recordAudioAndroid": true
+          "recordAudioAndroid": true,
+          "nfcPermission": "Allow $(PRODUCT_NAME) to access your NFC"
         }
       ],
       "expo-router",
@@ -52,7 +59,32 @@
           "backgroundColor": "#ffffff"
         }
       ],
-      "expo-secure-store"
+      "expo-secure-store",
+      "expo-web-browser",
+      [
+        "@react-native-seoul/kakao-login",
+        {
+          "kakaoAppKey": "ab4bfa48ea99a36918a4361345cfdee9",
+          "kotlinVersion": "2.0.21"
+        }
+      ],
+      [
+        "expo-build-properties",
+        {
+          "android": {
+            "extraMavenRepos": [
+              "https://devrepo.kakao.com/nexus/content/groups/public/"
+            ]
+          }
+        }
+      ],
+      [
+        "react-native-maps",
+        {
+          "iosGoogleMapsApiKey": "AIzaSyARVb-1bIZhwvhdNBFbK11PWZcSAWjsvAE",
+          "androidGoogleMapsApiKey": "AIzaSyARVb-1bIZhwvhdNBFbK11PWZcSAWjsvAE"
+        }
+      ]
     ],
     "experiments": {
       "typedRoutes": true
@@ -60,7 +92,7 @@
     "extra": {
       "router": {},
       "eas": {
-        "projectId": "85266f17-fc35-4e82-922e-0db7a812d4a6"
+        "projectId": "369ea854-2f0b-47ba-9c62-5ef939d91326"
       }
     }
   }

@@ -11,13 +11,17 @@ import {
   View,
 } from "react-native";
 
+import { useAuthStore } from "@/store/authStore";
+
 export default function MyPage() {
+  const { name, studentId, updateProfile } = useAuthStore();
   const [isEditing, setIsEditing] = useState(false);
-  const [name, setName] = useState("이름");
-  const [role, setRole] = useState("직번");
+  const [editName, setEditName] = useState(name);
+  const [editStudentId, setEditStudentId] = useState(studentId);
 
   const handleEdit = () => {
     if (isEditing) {
+      updateProfile(editName, editStudentId);
       setIsEditing(false);
     } else {
       setIsEditing(true);
@@ -40,21 +44,21 @@ export default function MyPage() {
             <>
               <TextInput
                 style={[styles.name, styles.input]}
-                value={name}
-                onChangeText={setName}
+                value={editName}
+                onChangeText={setEditName}
                 placeholder="이름"
               />
               <TextInput
                 style={[styles.role, styles.input]}
-                value={role}
-                onChangeText={setRole}
+                value={editStudentId}
+                onChangeText={setEditStudentId}
                 placeholder="직번"
               />
             </>
           ) : (
             <>
               <Text style={styles.name}>{name}</Text>
-              <Text style={styles.role}>{role}</Text>
+              <Text style={styles.role}>{studentId}</Text>
             </>
           )}
           <View style={styles.buttonContainer}>
@@ -76,7 +80,8 @@ export default function MyPage() {
         onPress={handleAttendancePress}
       >
         <Text style={styles.sectionTitle}>출결 내역</Text>
-        <View style={styles.historyItem}>
+        <Text style={styles.section}> 아직 출결 내역이 없습니다. </Text>
+        {/* <View style={styles.historyItem}>
           <Text style={styles.historyDate}>yyyy-mm-dd</Text>
           <Text style={styles.historyText}>신입생 원영회</Text>
           <Text style={styles.historyTime}>xx시 oo분</Text>
@@ -85,7 +90,7 @@ export default function MyPage() {
           <Text style={styles.historyDate}>yyyy-mm-dd</Text>
           <Text style={styles.historyText}>개강 OT</Text>
           <Text style={styles.historyTime}>xx시 oo분</Text>
-        </View>
+        </View>*/}
       </TouchableOpacity>
     </View>
   );
