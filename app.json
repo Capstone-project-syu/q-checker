@@ -1,36 +1,54 @@
 {
   "expo": {
-    "name": "qchecker",
-    "slug": "qchecker",
+    "name": "q-checker",
+    "slug": "q-checker",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/images/icon.png",
     "scheme": "qchecker",
     "userInterfaceStyle": "automatic",
     "newArchEnabled": true,
+    "runtimeVersion": {
+      "policy": "appVersion"
+    },
+    "updates": {
+      "requestHeaders": {
+        "expo-channel-name": "qchecker"
+      },
+      "url": "https://u.expo.dev/369ea854-2f0b-47ba-9c62-5ef939d91326"
+    },
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": true,
+      "bundleIdentifier": "com.sumin04.qchecker"
     },
     "android": {
-      "config": {
-        "googleMaps": {
-          "apiKey": "AIzaSyARVb-1bIZhwvhdNBFbK11PWZcSAWjsvAE"
-        }
-      },
       "adaptiveIcon": {
-        "backgroundColor": "#E6F4FE",
-        "foregroundImage": "./assets/images/android-icon-foreground.png",
-        "backgroundImage": "./assets/images/android-icon-background.png",
-        "monochromeImage": "./assets/images/android-icon-monochrome.png"
+        "foregroundImage": "./assets/images/adaptive-icon.png",
+        "backgroundColor": "#ffffff"
       },
       "edgeToEdgeEnabled": true,
-      "predictiveBackGestureEnabled": false
-    },
-    "web": {
-      "output": "static",
-      "favicon": "./assets/images/favicon.png"
+      "package": "com.sumin04.qchecker",
+      "config": {
+        "googleMaps": {
+          "apiKey": "process.env.GOOGLE_MAPS_API_KEY"
+        }
+      },
+      "permissions": [
+        "android.permission.CAMERA",
+        "android.permission.RECORD_AUDIO",
+        "android.permission.NFC"
+      ]
     },
     "plugins": [
+      [
+        "expo-camera",
+        {
+          "cameraPermission": "Allow $(PRODUCT_NAME) to access your camera",
+          "microphonePermission": "Allow $(PRODUCT_NAME) to access your microphone",
+          "recordAudioAndroid": true,
+          "nfcPermission": "Allow $(PRODUCT_NAME) to access your NFC"
+        }
+      ],
       "expo-router",
       [
         "expo-splash-screen",
@@ -38,17 +56,39 @@
           "image": "./assets/images/splash-icon.png",
           "imageWidth": 200,
           "resizeMode": "contain",
-          "backgroundColor": "#ffffff",
-          "dark": {
-            "backgroundColor": "#000000"
+          "backgroundColor": "#ffffff"
+        }
+      ],
+      "expo-secure-store",
+      "expo-web-browser",
+      [
+        "expo-build-properties",
+        {
+          "android": {
+            "extraMavenRepos": [
+              "https://devrepo.kakao.com/nexus/content/groups/public/"
+            ]
           }
         }
       ],
-      "react-native-nfc-manager"
+      [
+        "@react-native-kakao/core",
+        {
+          "nativeAppKey": "process.env.KAKAO_API_KEY",
+          "android": {
+            "authCodeHandlerActivity": true
+          }
+        }
+      ],
     ],
     "experiments": {
-      "typedRoutes": true,
-      "reactCompiler": true
+      "typedRoutes": true
+    },
+    "extra": {
+      "router": {},
+      "eas": {
+        "projectId": "369ea854-2f0b-47ba-9c62-5ef939d91326"
+      }
     }
   }
 }
