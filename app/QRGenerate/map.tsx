@@ -9,7 +9,7 @@ import {
   TextInput,
   View,
 } from "react-native";
-// import MapView, { Marker, Region } from "react-native-maps";
+import MapView, { Marker, Region } from "react-native-maps";
 
 export default function MapScreen() {
   const [region, setRegion] = useState<any>(null);
@@ -164,7 +164,7 @@ export default function MapScreen() {
       </View>
 
       {/* 지도 */}
-      {/* <MapView
+      <MapView
         style={styles.map}
         region={region}
         onTouchStart={() => setUserInteracted(true)}
@@ -177,7 +177,7 @@ export default function MapScreen() {
         }}
       >
         <Marker coordinate={region} />
-      </MapView> */}
+      </MapView>
 
       {/* 선택 버튼 */}
       <View style={styles.buttonContainer}>
